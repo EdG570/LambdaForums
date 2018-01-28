@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using LambdaForums.Data;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace LambdaForums
@@ -14,7 +16,18 @@ namespace LambdaForums
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            //BuildWebHost(args).Run();
+
+            var host = BuildWebHost(args);
+            using (var scope = host.Services.CreateScope())
+            {
+                // Retrieve your DbContext isntance here
+                var dbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+                // place your DB seeding code here
+                //DbSeeder.Seed(dbContext);
+            }
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
