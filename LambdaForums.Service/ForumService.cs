@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using LambdaForums.Data;
 using LambdaForums.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LambdaForums.Service
 {
@@ -27,7 +29,7 @@ namespace LambdaForums.Service
 
         public IEnumerable<Forum> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.Forums.Include(f => f.Posts).ToList();
         }
 
         public IEnumerable<ApplicationUser> GetAllActiveUsers()
