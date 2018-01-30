@@ -15,7 +15,8 @@ namespace LambdaForums.Controllers.Helpers
             {
                 Id = forum.Id,
                 Title = forum.Title,
-                Description = forum.Description
+                Description = forum.Description,
+                ImageUrl = forum.Imageurl
             };
         }
     }
