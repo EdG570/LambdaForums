@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using LambdaForums.Data.Models;
 using LambdaForums.Service;
 using LambdaForums.ViewModels.ForumViewModels;
+using LambdaForums.ViewModels.PostViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LambdaForums.Controllers
@@ -30,8 +33,22 @@ namespace LambdaForums.Controllers
 
         public IActionResult Topic(int id)
         {
+            var helper = new Helpers.ForumHelper();
+
             var forum = _forumService.GetById(id);
-            var posts = _postService.GetFilteredPosts(id);
+            var posts = _postService.GetPostsByForumId(id);
+
+            var postListings = posts.Select(p => new PostListingViewModel
+            {
+                Id = p.Id,
+                AuthorId = Convert.ToInt32(p.User.Id),
+                AuthorRating = p.User.Rating,
+                Title = p.Title,
+                DatePosted = p.Created.ToString("MMM dd yyyy"),
+                RepliesCount = p.Replies.Count(),
+                Forums = helper.BuildForumListing(forum)
+
+            });
 
             return View();
         }
