@@ -39,7 +39,10 @@ namespace LambdaForums.Service
 
         public Forum GetById(int id)
         {
-            throw new NotImplementedException();
+            return _db.Forums.Where(f => f.Id == id)
+                .Include(f => f.Posts).ThenInclude(p => p.User)
+                .Include(f => f.Posts).ThenInclude(p => p.Replies).ThenInclude(r => r.User)
+                .FirstOrDefault();
         }
 
         public Task UpdateForumDescription(int forumId, string newDescription)

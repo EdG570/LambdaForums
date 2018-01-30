@@ -27,9 +27,13 @@ namespace LambdaForums.Controllers
             return View(vm);
         }
 
-        public IActionResult Topic()
+        public IActionResult Topic(int id)
         {
-            throw new System.NotImplementedException();
+            var forum = _forumService.GetById(id);
+
+
+
+            return View();
         }
     }
 }
