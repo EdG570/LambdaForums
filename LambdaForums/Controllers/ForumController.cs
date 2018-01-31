@@ -57,7 +57,7 @@ namespace LambdaForums.Controllers
                 Forum = helper.BuildForumListing(forum)
             };
 
-            return View();
+            return View(vm);
         }
     }
 }
