@@ -1,0 +1,39 @@
+﻿@model LambdaForums.ViewModels.ForumViewModels.ForumTopicViewModel
+
+<h1>Welcome to the @Model.Forum.Title Forum</h1>
+
+@if (Model.Posts.Any())
+{
+    <table class="table table-bordered table-hover">
+        <tbody>
+            @foreach (var post in Model.Posts)
+            {
+                <tr>
+                    <td>
+                        @post.Title
+                    </td>
+                    <td>
+                        @post.AuthorName
+                    </td>
+                    <td>
+                        @post.DatePosted
+                    </td>
+                    <td>
+                        @post.RepliesCount
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="no-posts">
+        <h3>It looks like there are no @Model.Forum.Title posts yet.</h3>
+        <h3>Why not 
+            <a asp-controller="Post" asp-action="Create" asp-route-id="@Model.Forum.Id">Create</a>
+            one?
+        </h3>
+    </div>
+}
+

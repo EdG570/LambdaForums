@@ -36,12 +36,13 @@ namespace LambdaForums.Controllers
             var helper = new Helpers.ForumHelper();
 
             var forum = _forumService.GetById(id);
-            var posts = _postService.GetPostsByForumId(id);
+            var posts = forum.Posts;
 
             var postListings = posts.Select(p => new PostListingViewModel
             {
                 Id = p.Id,
                 AuthorId = Convert.ToInt32(p.User.Id),
+                AuthorName = p.User.UserName,
                 AuthorRating = p.User.Rating,
                 Title = p.Title,
                 DatePosted = p.Created.ToString("MMM dd yyyy"),
@@ -49,6 +50,12 @@ namespace LambdaForums.Controllers
                 Forums = helper.BuildForumListing(forum)
 
             });
+
+            var vm = new ForumTopicViewModel
+            {
+                Posts = postListings,
+                Forum = helper.BuildForumListing(forum)
+            };
 
             return View();
         }

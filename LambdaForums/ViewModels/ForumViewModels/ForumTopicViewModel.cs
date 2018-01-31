@@ -8,7 +8,7 @@ namespace LambdaForums.ViewModels.ForumViewModels
 {
     public class ForumTopicViewModel
     {
-        public ForumListViewModel Forums { get; set; }
+        public ForumListViewModel Forum { get; set; }
         public IEnumerable<PostListingViewModel> Posts { get; set; }
     }
 }
