@@ -33,6 +33,7 @@ namespace LambdaForums
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IForumService, ForumService>();
+            services.AddScoped<IPostService, PostService>();
 
             services.AddMvc();
         }

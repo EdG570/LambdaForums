@@ -45,7 +45,10 @@ namespace LambdaForums.Service
 
         public Post GetById(int id)
         {
-            throw new NotImplementedException();
+            return _db.Posts.Include(p => p.User)
+                            .Include(p => p.Replies).ThenInclude(r => r.User)
+                            .Include(p => p.Forum)
+                            .FirstOrDefault(p => p.Id == id);
         }
 
         public IEnumerable<Post> GetFilteredPosts(string searchQuery)
